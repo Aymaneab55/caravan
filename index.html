@@ -1,552 +1,2215 @@
 <!doctype html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8" />
-  <!-- Responsive viewport: do not disable user's ability to zoom for accessibility -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes" />
+
   <meta name="theme-color" content="#092035">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="format-detection" content="telephone=no">
+
   <title>Win a Luxury Caravan — Enter Now</title>
+
   <meta name="description" content="Win a $45,000 luxury caravan. Enter by completing one quick sponsor email registration (~30–90s). No purchase required.">
 
+
+
   <!-- Fonts -->
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+
+
   <style>
-    /*
-      Android + iOS mobile-optimized landing page
-      Key Android fixes:
-      - text-size-adjust: keep it stable across browsers
-      - inputs font-size 16px to prevent iOS auto-zoom
-      - use dynamic viewport units (100dvh) for modal to avoid 100vh issues on mobile browsers
-      - sticky CTA uses env(safe-area-inset-bottom) so it doesn't overlay nav bars
-      - avoid fixed-width columns; use fluid layout
-    */
 
     :root{
-      --bg:#041726;           /* dark navy */
+
+      --bg:#041726;
+
       --panel:#072534;
+
       --muted:#98acb4;
+
       --text:#eaf6f5;
-      --accent:#f7c95f;       /* warm gold CTA */
-      --accent-2:#36d6c7;     /* teal accent (used sparingly) */
+
+      --accent:#f7c95f;
+
+      --accent-2:#36d6c7;
+
       --card-radius:14px;
+
       --max-width:980px;
+
       --safe-pad:16px;
+
       --sticky-offset: calc(env(safe-area-inset-bottom, 12px) + 12px);
+
     }
 
+
+
     html {
-      -webkit-text-size-adjust: 100%; /* iOS */
-      text-size-adjust: 100%;         /* Android/others */
+
+      -webkit-text-size-adjust: 100%;
+
+      text-size-adjust: 100%;
+
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      font-size: 16px; /* base 16px (rem-based sizes safe across devices) */
+
+      font-size: 16px;
+
       background: linear-gradient(180deg,#02121a,#041726);
+
       color: var(--text);
+
       height: 100%;
+
       -webkit-font-smoothing:antialiased;
+
       -moz-osx-font-smoothing:grayscale;
+
+      /* iOS safe area support */
+
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+
     }
+
+
 
     *,*::before,*::after { box-sizing: border-box; }
 
     img { max-width: 100%; display:block; height:auto; }
 
-    /* Layout */
-    .wrap {
-      max-width: var(--max-width);
-      margin: 12px auto;
-      padding: var(--safe-pad);
+
+
+    body {
+
+      margin: 0;
+
+      padding: 0;
+
+      min-height: 100vh;
+
+      /* Prevent iOS bounce scroll */
+
+      overscroll-behavior-y: none;
+
+      /* Better touch scrolling on iOS */
+
+      -webkit-overflow-scrolling: touch;
+
     }
+
+
+
+    .wrap {
+
+      max-width: var(--max-width);
+
+      margin: 0 auto;
+
+      padding: 10px var(--safe-pad);
+
+      padding-bottom: 20px;
+
+    }
+
+
+
+    /* Mobile-first optimizations */
+
+    @media (max-width: 768px) {
+
+      html { font-size: 15px; } /* Smaller base size for mobile */
+
+      .wrap { padding: 8px 12px; padding-bottom: 16px; }
+
+    }
+
+
 
     header.top {
+
       display:flex;
+
       justify-content:space-between;
+
       align-items:center;
-      gap:12px;
-      padding:10px;
+
+      gap:10px;
+
+      padding:10px 12px;
+
       border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.03);
+
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+
+      border: 1px solid rgba(255,255,255,0.04);
+
       position: sticky;
+
       top: 8px;
+
       z-index: 60;
+
       -webkit-backface-visibility: hidden;
+
+      backdrop-filter: blur(10px);
+
+      -webkit-backdrop-filter: blur(10px);
+
     }
 
-    .brand { display:flex; gap:10px; align-items:center; }
+
+
+    @media (max-width: 768px) {
+
+      header.top {
+
+        padding: 8px 10px;
+
+        gap: 8px;
+
+        top: 6px;
+
+      }
+
+    }
+
+
+
+    .brand { display:flex; gap:10px; align-items:center; flex:1; min-width:0; }
+
     .brand .logo { width:44px; height:44px; border-radius:10px; overflow:hidden; flex:0 0 44px; }
-    .brand .logo img { width: 100%; height: 100%; object-fit: cover; display:block; }
-    .brand .title { font-weight:700; font-size:16px; color: var(--text); margin:0; }
-    .brand .subtitle { font-size:13px; color: var(--muted); margin-top:2px; }
 
-    nav.top-nav { display:flex; gap:10px; align-items:center; font-size:13px; color:var(--muted); }
-    nav.top-nav a { padding:8px; border-radius:8px; color: var(--muted); text-decoration:none; }
-    nav.top-nav a:hover { color: var(--accent); }
+    
 
-    /* Hero (single column for mobile) */
-    .hero {
-      margin-top:12px;
-      display:block;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: var(--card-radius);
-      padding: 18px;
-      border: 1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 8px 26px rgba(2,12,20,0.33);
-      overflow: hidden;
+    @media (max-width: 768px) {
+
+      .brand .logo { width: 40px; height: 40px; flex: 0 0 40px; }
+
     }
+
+    
+
+    .brand .logo img { width: 100%; height: 100%; object-fit: cover; display:block; }
+
+    .brand .title { font-weight:700; font-size:16px; color: var(--text); margin:0; line-height:1.2; }
+
+    
+
+    @media (max-width: 768px) {
+
+      .brand .title { font-size: 14px; }
+
+    }
+
+    
+
+    .brand .subtitle { font-size:11px; color: var(--muted); margin-top:2px; line-height:1.3; }
+
+    
+
+    @media (max-width: 768px) {
+
+      .brand .subtitle { font-size: 10px; }
+
+    }
+
+
+
+    nav.top-nav { display:flex; gap:6px; align-items:center; font-size:12px; color:var(--muted); }
+
+    nav.top-nav a { padding:8px 10px; border-radius:8px; color: var(--muted); text-decoration:none; min-height:36px; display:flex; align-items:center; }
+
+    nav.top-nav a:hover { color: var(--accent); background: rgba(255,255,255,0.03); }
+
+    nav.top-nav a:active { transform: scale(0.95); }
+
+
+
+    /* Hide nav on very small screens */
+
+    @media (max-width: 360px) {
+
+      nav.top-nav { display:none; }
+
+      .brand .subtitle { display:none; }
+
+    }
+
+
+
+    .hero {
+
+      margin-top:12px;
+
+      display:block;
+
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+
+      border-radius: 14px;
+
+      padding: 18px 16px;
+
+      border: 1px solid rgba(255,255,255,0.04);
+
+      box-shadow: 0 8px 32px rgba(2,12,20,0.4);
+
+      overflow: hidden;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .hero {
+
+        margin-top:10px;
+
+        padding: 14px 12px;
+
+        border-radius: 12px;
+
+      }
+
+    }
+
+
 
     .kicker {
+
       display:inline-block;
+
       background: linear-gradient(90deg, var(--accent), #ffd998);
+
       color: #051018;
-      padding: 8px 12px;
+
+      padding: 8px 14px;
+
       border-radius: 999px;
+
       font-weight:800;
-      font-size:13px;
-      margin-bottom:10px;
-      box-shadow: 0 8px 30px rgba(247,201,95,0.08);
+
+      font-size:12px;
+
+      margin-bottom:12px;
+
+      box-shadow: 0 4px 20px rgba(247,201,95,0.2);
+
+      letter-spacing: 0.3px;
+
     }
+
+
+
+    @media (max-width: 768px) {
+
+      .kicker {
+
+        font-size:11px;
+
+        padding: 6px 12px;
+
+        margin-bottom:12px;
+
+      }
+
+    }
+
+
 
     h1.hero-title {
-      font-size: 22px;
-      line-height: 1.04;
-      margin: 6px 0 10px 0;
+
+      font-size: 24px;
+
+      line-height: 1.2;
+
+      margin: 8px 0 12px 0;
+
       color: var(--text);
+
       font-weight:800;
+
       letter-spacing: -0.3px;
+
     }
+
+
+
+    @media (max-width: 768px) {
+
+      h1.hero-title {
+
+        font-size: 20px;
+
+        line-height: 1.25;
+
+        margin: 6px 0 10px 0;
+
+      }
+
+    }
+
+
+
+    @media (max-width: 360px) {
+
+      h1.hero-title {
+
+        font-size: 18px;
+
+      }
+
+    }
+
+
 
     p.lead {
-      margin: 0 0 14px 0;
+
+      margin: 0 0 16px 0;
+
       color: var(--muted);
+
       font-size: 14px;
-      line-height: 1.5;
+
+      line-height: 1.6;
+
     }
+
+
+
+    @media (max-width: 768px) {
+
+      p.lead {
+
+        font-size: 13px;
+
+        line-height: 1.65;
+
+        margin-bottom: 14px;
+
+      }
+
+    }
+
+
+
+    .instructions {
+
+      background: linear-gradient(180deg, rgba(54,214,199,0.1), rgba(54,214,199,0.04));
+
+      border: 1px solid rgba(54,214,199,0.2);
+
+      border-radius: 12px;
+
+      padding: 14px;
+
+      margin: 14px 0;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .instructions {
+
+        padding: 12px;
+
+        margin: 12px 0;
+
+        border-radius: 10px;
+
+      }
+
+    }
+
+
+
+    .instructions h3 {
+
+      color: var(--accent-2);
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      margin: 0 0 10px 0;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .instructions h3 {
+
+        font-size: 14px;
+
+        margin-bottom: 8px;
+
+        gap: 6px;
+
+      }
+
+    }
+
+
+
+    .instructions h3::before {
+
+      content: "✓";
+
+      background: var(--accent-2);
+
+      color: #041726;
+
+      width: 22px;
+
+      height: 22px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-weight: 800;
+
+      font-size: 13px;
+
+      flex-shrink: 0;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .instructions h3::before {
+
+        width: 20px;
+
+        height: 20px;
+
+        font-size: 12px;
+
+      }
+
+    }
+
+
+
+    .instructions ol {
+
+      margin: 0;
+
+      padding-left: 22px;
+
+      color: var(--text);
+
+      font-size: 14px;
+
+      line-height: 1.75;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .instructions ol {
+
+        font-size: 13px;
+
+        padding-left: 20px;
+
+        line-height: 1.8;
+
+      }
+
+    }
+
+
+
+    .instructions li {
+
+      margin-bottom: 10px;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .instructions li {
+
+        margin-bottom: 8px;
+
+      }
+
+    }
+
+
+
+    .instructions li strong {
+
+      color: var(--accent);
+
+      font-weight: 700;
+
+    }
+
+
 
     .cta-row {
+
       display:flex;
+
       gap:10px;
-      align-items:center;
-      margin-bottom:12px;
+
+      align-items:stretch;
+
+      margin: 16px 0 14px 0;
+
       flex-wrap:wrap;
+
     }
+
+
+
+    @media (max-width: 768px) {
+
+      .cta-row {
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        margin: 14px 0 12px 0;
+
+      }
+
+    }
+
+
 
     .btn-primary {
+
       background: linear-gradient(90deg, var(--accent), #ffd88f);
+
       color: #04121a;
-      padding: 12px 14px;
+
+      padding: 14px 20px;
+
       border-radius: 999px;
+
       border: none;
+
       font-weight:800;
-      font-size: 15px;
-      box-shadow: 0 10px 30px rgba(247,201,95,0.09);
+
+      font-size: 16px;
+
+      box-shadow: 0 8px 32px rgba(247,201,95,0.25);
+
       flex:1;
-      min-width: 160px;
+
+      min-width: 0;
+
       text-align:center;
+
       touch-action: manipulation;
+
+      cursor: pointer;
+
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+      -webkit-tap-highlight-color: transparent;
+
+      user-select: none;
+
+      min-height: 48px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
     }
+
+
+
+    @media (max-width: 768px) {
+
+      .btn-primary {
+
+        width: 100%;
+
+        padding: 13px 18px;
+
+        font-size: 15px;
+
+        min-height: 50px;
+
+        box-shadow: 0 6px 28px rgba(247,201,95,0.3);
+
+      }
+
+    }
+
+
+
+    .btn-primary:hover {
+
+      transform: translateY(-2px);
+
+      box-shadow: 0 12px 40px rgba(247,201,95,0.3);
+
+    }
+
+
+
+    .btn-primary:active {
+
+      transform: translateY(0) scale(0.98);
+
+      box-shadow: 0 4px 20px rgba(247,201,95,0.2);
+
+    }
+
+
 
     .btn-secondary {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.04);
+
+      background: rgba(255,255,255,0.04);
+
+      border: 1px solid rgba(255,255,255,0.1);
+
       color: var(--muted);
-      padding: 10px 12px;
-      border-radius: 10px;
-      min-width: 96px;
+
+      padding: 12px 16px;
+
+      border-radius: 12px;
+
+      min-width: 0;
+
       text-align:center;
+
+      cursor: pointer;
+
+      transition: all 0.15s ease;
+
+      -webkit-tap-highlight-color: transparent;
+
+      user-select: none;
+
+      min-height: 48px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
     }
+
+
+
+    @media (max-width: 768px) {
+
+      .btn-secondary {
+
+        width: 100%;
+
+        padding: 12px 16px;
+
+        min-height: 48px;
+
+        font-size: 13px;
+
+      }
+
+    }
+
+
+
+    .btn-secondary:hover {
+
+      border-color: rgba(255,255,255,0.2);
+
+      background: rgba(255,255,255,0.06);
+
+      color: var(--text);
+
+    }
+
+
+
+    .btn-secondary:active {
+
+      transform: scale(0.97);
+
+    }
+
+
 
     .summary {
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:8px;
+
+      display:grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+      gap:8px;
+
+      margin-top:12px;
+
       color:var(--muted);
-      font-size:13px;
-    }
-    .summary .item { min-width:88px; }
 
-    /* Features stacked for easy scanning */
-    .features { margin-top:12px; display:flex; flex-direction:column; gap:10px; }
-    .feature {
-      background: var(--panel);
-      padding:12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.02);
-      color:var(--muted);
-    }
-    .feature strong { display:block; color:var(--text); margin-bottom:6px; font-weight:700; }
+      font-size:12px;
 
-    /* Prize preview - responsive */
-    .prize {
-      margin-top: 12px;
-      border-radius: 12px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.03);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:12px;
-      display:flex; gap:12px; align-items:center;
-    }
-    .prize .thumb { width:86px; height:64px; border-radius:8px; overflow:hidden; flex: 0 0 86px; }
-    .prize .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-    .prize .meta { color:var(--muted); font-size:13px; }
-    .prize .value { margin-top:6px; background: linear-gradient(90deg,#e8fff6,#bff7f0); padding:6px 10px; border-radius:999px; color:#012520; font-weight:800; display:inline-block; font-size:13px; }
-
-    /* Sticky CTA at bottom (use safe area inset so it doesn't overlap Android nav/buttons) */
-    .sticky-cta {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: var(--sticky-offset);
-      z-index: 140;
-      width: calc(100% - 32px);
-      max-width: 720px;
-      background: linear-gradient(90deg, var(--accent), #ffd88f);
-      color: #04121a;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: none;
-      font-weight: 800;
-      text-align:center;
-      box-shadow: 0 16px 48px rgba(247,201,95,0.12);
-      display: none;
-      touch-action: manipulation;
-    }
-    @media (max-width:980px) {
-      .sticky-cta { display:block; }
     }
 
-    /* Modal (locker) - use dynamic viewport units to avoid mobile 100vh issues */
-    .modal-back {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(2,6,12,0.7);
-      z-index: 200;
-      padding: 12px;
+
+
+    @media (max-width: 768px) {
+
+      .summary {
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 6px;
+
+        margin-top: 10px;
+
+      }
+
     }
-    .modal {
-      width: 100%;
-      max-width: 540px;
-      border-radius: 14px;
-      background: linear-gradient(180deg,#061224,#04161a);
-      padding: 16px;
+
+
+
+    .summary .item { 
+
+      padding: 10px 8px;
+
+      background: rgba(255,255,255,0.03);
+
+      border-radius: 8px;
+
+      border: 1px solid rgba(255,255,255,0.05);
+
+      text-align: center;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .summary .item {
+
+        padding: 8px 6px;
+
+      }
+
+    }
+
+
+
+    .summary .item strong {
+
+      display: block;
+
       color: var(--text);
-      border: 1px solid rgba(255,255,255,0.03);
-      /* Be careful with 100vh on mobile; use dynamic dvh where supported */
-      max-height: calc(min(100dvh, 100vh) - 40px);
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
+
+      font-size: 15px;
+
+      margin-bottom: 3px;
+
+      font-weight: 700;
+
     }
-    .modal h3 { margin: 6px 0; color: var(--accent); }
-    .modal p { color: var(--muted); font-size: 14px; }
+
+
+
+    @media (max-width: 768px) {
+
+      .summary .item strong {
+
+        font-size: 14px;
+
+      }
+
+    }
+
+
+
+    .summary .item small {
+
+      display: block;
+
+      font-size: 11px;
+
+      line-height: 1.3;
+
+    }
+
+
+
+    .features { margin-top:16px; display:flex; flex-direction:column; gap:10px; }
+
+    
+
+    @media (max-width: 768px) {
+
+      .features {
+
+        margin-top: 14px;
+
+        gap: 8px;
+
+      }
+
+    }
+
+
+
+    .feature {
+
+      background: var(--panel);
+
+      padding:12px;
+
+      border-radius: 10px;
+
+      border: 1px solid rgba(255,255,255,0.04);
+
+      color:var(--muted);
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .feature {
+
+        padding: 10px;
+
+      }
+
+    }
+
+
+
+    .feature strong { 
+
+      display:block; 
+
+      color:var(--text); 
+
+      margin-bottom:6px; 
+
+      font-weight:700; 
+
+      font-size: 16px; 
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .feature strong {
+
+        font-size: 15px;
+
+      }
+
+    }
+
+
+
+    .feature span {
+
+      font-size: 14px;
+
+      line-height: 1.5;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .feature span {
+
+        font-size: 13px;
+
+      }
+
+    }
+
+
+
+    .prize {
+
+      margin-top: 16px;
+
+      border-radius: 12px;
+
+      overflow:hidden;
+
+      border:1px solid rgba(255,255,255,0.05);
+
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+
+      padding:12px;
+
+      display:flex; gap:12px; align-items:center;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .prize {
+
+        margin-top: 14px;
+
+        padding: 10px;
+
+        gap: 10px;
+
+        border-radius: 10px;
+
+      }
+
+    }
+
+
+
+    .prize .thumb { 
+
+      width:90px; 
+
+      height:65px; 
+
+      border-radius:8px; 
+
+      overflow:hidden; 
+
+      flex: 0 0 90px; 
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .prize .thumb {
+
+        width: 80px;
+
+        height: 60px;
+
+        flex: 0 0 80px;
+
+      }
+
+    }
+
+
+
+    .prize .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    .prize .meta { color:var(--muted); font-size:13px; flex:1; min-width:0; }
+
+    
+
+    @media (max-width: 768px) {
+
+      .prize .meta {
+
+        font-size: 12px;
+
+      }
+
+    }
+
+
+
+    .prize .value { 
+
+      margin-top:8px; 
+
+      background: linear-gradient(90deg,#e8fff6,#bff7f0); 
+
+      padding:7px 12px; 
+
+      border-radius:999px; 
+
+      color:#012520; 
+
+      font-weight:800; 
+
+      display:inline-block; 
+
+      font-size:12px; 
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .prize .value {
+
+        font-size: 11px;
+
+        padding: 6px 10px;
+
+        margin-top: 6px;
+
+      }
+
+    }
+
+
+
+    .modal-back {
+
+      position: fixed;
+
+      inset: 0;
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: rgba(2,6,12,0.85);
+
+      backdrop-filter: blur(12px);
+
+      -webkit-backdrop-filter: blur(12px);
+
+      z-index: 200;
+
+      padding: 8px;
+
+      /* iOS safe area */
+
+      padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+
+      padding-top: calc(8px + env(safe-area-inset-top, 0px));
+
+      animation: fadeInBack 0.25s ease-out;
+
+    }
+
+
+
+    @keyframes fadeInBack {
+
+      from { opacity: 0; }
+
+      to { opacity: 1; }
+
+    }
+
+
+
+    .modal {
+
+      width: 100%;
+
+      max-width: 360px;
+
+      border-radius: 16px;
+
+      background: linear-gradient(180deg,#061224,#04161a);
+
+      padding: 14px 16px;
+
+      padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+
+      color: var(--text);
+
+      border: 1px solid rgba(255,255,255,0.08);
+
+      max-height: calc(min(95dvh, 95vh) - 16px);
+
+      overflow: hidden;
+
+      -webkit-overflow-scrolling: touch;
+
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+
+      /* Smooth scale and fade animation */
+
+      animation: modalSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+      transform-origin: center center;
+
+      display: flex;
+
+      flex-direction: column;
+
+    }
+
+
+
+    @keyframes modalSlideIn {
+
+      from {
+
+        opacity: 0;
+
+        transform: scale(0.92) translateY(10px);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform: scale(1) translateY(0);
+
+      }
+
+    }
+
+
+
+    @media (max-width: 480px) {
+
+      .modal {
+
+        max-width: calc(100% - 16px);
+
+        padding: 12px 14px;
+
+        border-radius: 14px;
+
+      }
+
+    }
+
+    .modal-content {
+
+      overflow-y: auto;
+
+      overflow-x: hidden;
+
+      flex: 1;
+
+      -webkit-overflow-scrolling: touch;
+
+      min-height: 0;
+
+    }
+
+    .modal label.small {
+
+      font-size: 11px;
+
+    }
+
+    .modal .btn-primary {
+
+      padding: 10px 14px;
+
+      font-size: 13px;
+
+      min-height: 40px;
+
+    }
+
+    @media (max-width: 768px) {
+
+      .modal .btn-primary {
+
+        padding: 9px 12px;
+
+        font-size: 12px;
+
+        min-height: 38px;
+
+      }
+
+    }
+
+
+
+    .modal h3 { 
+
+      margin: 0 0 8px 0; 
+
+      color: var(--accent); 
+
+      font-size: 16px;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .modal h3 {
+
+        font-size: 15px;
+
+        margin-bottom: 6px;
+
+      }
+
+    }
+
+
+
+    .modal p { 
+
+      color: var(--muted); 
+
+      font-size: 12px; 
+
+      line-height: 1.5; 
+
+      margin-bottom: 10px;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .modal p {
+
+        font-size: 11px;
+
+        line-height: 1.55;
+
+        margin-bottom: 8px;
+
+      }
+
+    }
+
+
+
+    .btn-ghost {
+
+      background: transparent;
+
+      border: 1px solid rgba(255,255,255,0.1);
+
+      color: var(--muted);
+
+      padding: 6px 10px;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+      font-size: 11px;
+
+      transition: all 0.2s ease;
+
+    }
+
+    .btn-ghost:hover {
+
+      border-color: rgba(255,255,255,0.2);
+
+      color: var(--text);
+
+      background: rgba(255,255,255,0.05);
+
+    }
+
+
 
     .modal input[type="email"], .modal input[type="tel"] {
+
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.04);
-      background: transparent;
+
+      padding: 10px 12px;
+
+      border-radius: 10px;
+
+      border: 1px solid rgba(255,255,255,0.1);
+
+      background: rgba(255,255,255,0.04);
+
       color: var(--text);
-      font-size: 16px; /* prevents iOS auto-zoom */
-      margin-top: 8px;
+
+      font-size: 14px;
+
+      margin-top: 6px;
+
       outline: none;
+
+      transition: all 0.2s ease;
+
+      -webkit-appearance: none;
+
+      appearance: none;
+
+      min-height: 40px;
+
     }
 
-    .modal .row { display:flex; gap:10px; margin-top:12px; }
-    .modal .offer { margin-top:10px; padding:12px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
-    .progress { height: 8px; background: rgba(255,255,255,0.03); border-radius: 8px; overflow:hidden; margin-top:12px;}
-    .progress > span { display:block; height: 100%; width:0; background: linear-gradient(90deg, var(--accent), #ffd88f); transition: width .35s; }
+
+
+    @media (max-width: 768px) {
+
+      .modal input[type="email"], .modal input[type="tel"] {
+
+        padding: 9px 11px;
+
+        font-size: 14px;
+
+        min-height: 38px;
+
+      }
+
+    }
+
+
+
+    .modal input[type="email"]:focus, .modal input[type="tel"]:focus {
+
+      border-color: var(--accent);
+
+      background: rgba(255,255,255,0.06);
+
+      box-shadow: 0 0 0 3px rgba(247,201,95,0.1);
+
+    }
+
+
+
+    .modal .row { display:flex; gap:8px; margin-top:12px; }
+    .modal .offer { 
+
+      margin-top:8px; 
+
+      padding:10px 12px; 
+
+      border-radius:10px; 
+
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); 
+
+      cursor:pointer; 
+
+      display:flex; 
+
+      justify-content:space-between; 
+
+      align-items:center;
+
+      border: 1px solid rgba(255,255,255,0.08);
+
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+      -webkit-tap-highlight-color: transparent;
+
+      min-height: 48px;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .modal .offer {
+
+        padding: 8px 10px;
+
+        min-height: 44px;
+
+      }
+
+    }
+
+
+
+    .modal .offer:hover {
+
+      transform: translateY(-2px);
+
+      border-color: rgba(54,214,199,0.4);
+
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+    }
+
+
+
+    .modal .offer:active {
+
+      transform: translateY(0) scale(0.98);
+
+    }
+    .progress { height: 6px; background: rgba(255,255,255,0.05); border-radius: 6px; overflow:hidden; margin-top:10px;}
+    .progress > span { display:block; height: 100%; width:0; background: linear-gradient(90deg, var(--accent), #ffd88f); transition: width .4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+
 
     .small { font-size:13px; color: var(--muted); }
 
-    /* Accessibility / hit size */
+
+
     button { min-height:44px; border-radius:8px; }
 
-    /* helper: avoid large layout shifting with images */
-    .aspect-keeper { width:100%; height:0; padding-bottom:56%; position:relative; overflow:hidden; border-radius:10px; background: linear-gradient(180deg,#02121a,#031926); }
-    .aspect-keeper img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+
+    .trust-badges {
+
+      display: flex;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+
+      margin-top: 18px;
+
+      padding-top: 18px;
+
+      border-top: 1px solid rgba(255,255,255,0.06);
+
+      justify-content: center;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .trust-badges {
+
+        gap: 8px;
+
+        margin-top: 16px;
+
+        padding-top: 16px;
+
+      }
+
+    }
+
+
+
+    .trust-badge {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      font-size: 12px;
+
+      color: var(--muted);
+
+      padding: 6px 10px;
+
+      background: rgba(255,255,255,0.02);
+
+      border-radius: 8px;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .trust-badge {
+
+        font-size: 11px;
+
+        padding: 5px 8px;
+
+      }
+
+    }
+
+
+
+    .trust-badge::before {
+
+      content: "🔒";
+
+      font-size: 13px;
+
+    }
+
   </style>
+
 </head>
+
 <body>
+
   <div class="wrap" role="document">
 
-    <!-- Header -->
+
+
     <header class="top" role="banner" aria-label="Top header">
+
       <div class="brand">
+
         <div class="logo" aria-hidden="true">
+
           <img src="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" alt="Caravan thumbnail">
+
         </div>
+
         <div>
+
           <div class="title">Luxury Caravan Giveaway</div>
+
           <div class="subtitle small">Win a premium caravan — valued $45,000</div>
+
         </div>
+
       </div>
+
+
 
       <nav class="top-nav" aria-label="Main navigation">
+
         <a href="#features">Features</a>
+
         <a href="#testimonials">Winners</a>
+
         <a href="#terms">Terms</a>
+
       </nav>
+
     </header>
 
-    <!-- Hero -->
+
+
     <main class="hero" role="main">
-      <div class="kicker" aria-hidden="true">LIMITED ENTRY • FREE</div>
-      <h1 class="hero-title" id="heroHeading">Win a Luxury Caravan — Quick 2‑Step Entry</h1>
-      <p class="lead">Complete one sponsor email registration (~30–90s) to get an instant entry. No purchase necessary. Use valid info to qualify.</p>
+
+      <div class="kicker" aria-hidden="true">🎁 LIMITED ENTRY • 100% FREE</div>
+
+      <h1 class="hero-title" id="heroHeading">Win a $45,000 Luxury Caravan</h1>
+
+      <p class="lead">Enter now for your chance to win this premium caravan. Complete one quick sponsor registration (takes 1-3 minutes) to confirm your entry. No purchase required.</p>
+
+
+
+      <div class="instructions">
+
+        <h3>How to Enter (3 Simple Steps)</h3>
+
+        <ol>
+
+          <li><strong>Click "Enter Giveaway"</strong> below to get started</li>
+
+          <li><strong>Enter your email</strong> to save your spot</li>
+
+          <li><strong>Complete one sponsor offer</strong> (quick email signup, takes 1-3 minutes)</li>
+
+        </ol>
+
+      </div>
+
+
 
       <div class="cta-row" role="region" aria-label="Primary call to action">
-        <button id="enterBtn" class="btn-primary" aria-haspopup="dialog">Enter Giveaway — Start</button>
-        <button id="howBtn" class="btn-secondary">How it works</button>
+
+        <button id="enterBtn" class="btn-primary" aria-haspopup="dialog">🎯 Enter Giveaway Now</button>
+
+        <button id="howBtn" class="btn-secondary">ℹ️ How it works</button>
+
       </div>
+
+
 
       <div class="summary" aria-hidden="false">
+
         <div class="item"><strong>$45,000</strong><small>Prize value</small></div>
-        <div class="item"><strong>1–3 min</strong><small>Avg completion</small></div>
+
+        <div class="item"><strong>1–3 min</strong><small>To complete</small></div>
+
+        <div class="item"><strong>100% Free</strong><small>No purchase needed</small></div>
+
         <div class="item"><strong>Secure</strong><small>Trusted sponsors</small></div>
+
       </div>
+
+
 
       <div class="features" id="features">
-        <div class="feature"><strong>Comfort for 6</strong><span>Spacious sleeping & living</span></div>
-        <div class="feature"><strong>Full Kitchen</strong><span>Modern appliances</span></div>
-        <div class="feature"><strong>Private Bath</strong><span>Shower, toilet & vanity</span></div>
+
+        <div class="feature"><strong>🏠 Spacious Living</strong><span>Comfortably sleeps 6 people with full amenities</span></div>
+
+        <div class="feature"><strong>🍳 Full Kitchen</strong><span>Modern appliances and cooking facilities</span></div>
+
+        <div class="feature"><strong>🚿 Private Bathroom</strong><span>Complete with shower, toilet & vanity</span></div>
+
       </div>
 
-      <div class="prize" aria-hidden="false" style="margin-top:12px;">
+
+
+      <div class="prize" aria-hidden="false" style="margin-top:18px;">
+
         <div class="thumb" aria-hidden="true">
+
           <picture>
+
             <source type="image/webp" srcset="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg">
+
             <img src="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg" alt="Luxury Caravan exterior" loading="lazy">
+
           </picture>
+
         </div>
+
         <div class="meta">
-          <div style="font-weight:700;">2024 Premium Luxury Caravan</div>
-          <div class="small" style="margin-top:4px;">Modern amenities • Sleeps 6</div>
-          <div class="value" style="margin-top:6px;">VALUE: $45,000</div>
+
+          <div style="font-weight:700; font-size: 15px;">2024 Premium Luxury Caravan</div>
+
+          <div class="small" style="margin-top:4px;">Modern amenities • Sleeps 6 • Ready to travel</div>
+
+          <div class="value" style="margin-top:8px;">VALUE: $45,000</div>
+
         </div>
+
       </div>
+
+
+
+      <div class="trust-badges">
+
+        <div class="trust-badge">Secure Entry</div>
+
+        <div class="trust-badge">No Credit Card</div>
+
+        <div class="trust-badge">Instant Confirmation</div>
+
+      </div>
+
     </main>
 
-    <!-- Sticky CTA for phones -->
-    <button id="stickyCTA" class="sticky-cta" aria-label="Enter giveaway">Enter & Start →</button>
 
-    <footer style="margin-top:18px;text-align:center;color:var(--muted);" id="terms">
-      <small>© 2025 Your CPA Business • Promotion not affiliated with Google</small>
+
+    <footer style="margin-top:24px;text-align:center;color:var(--muted);padding:16px 0 12px 0;" id="terms">
+
+      <small style="font-size: 12px; line-height: 1.5;">© 2025 Your CPA Business • Promotion not affiliated with Google</small>
+
     </footer>
+
   </div>
 
-  <!-- Modal / Locker -->
+
+
   <div id="modalBack" class="modal-back" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lockerTitle">
+
     <div class="modal" role="document">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3 id="lockerTitle">Quick Verification — Step 1</h3>
-        <button id="closeModal" class="btn-ghost" aria-label="Close">Close</button>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-shrink:0;">
+
+        <h3 id="lockerTitle">Enter Your Information</h3>
+
+        <button id="closeModal" class="btn-ghost" aria-label="Close">✕ Close</button>
+
       </div>
 
-      <p class="small">Enter your email so we can save your spot. Afterwards you'll see trusted sponsor offers — complete one quick registration (~30–90s) to confirm your entry.</p>
 
-      <label class="small" for="leadEmail" style="margin-top:12px">Email</label>
-      <input id="leadEmail" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email" aria-required="true">
 
-      <label class="small" for="leadPhone" style="margin-top:8px">Phone (optional)</label>
-      <input id="leadPhone" type="tel" placeholder="+1 555 555 5555" autocomplete="tel" inputmode="tel">
+      <div class="modal-content">
 
-      <div class="row" style="margin-top:12px">
-        <button id="saveLead" class="btn-primary" style="flex:1">Save & Continue</button>
-        <button id="openOffers" class="btn-ghost" style="width:120px">Offers</button>
+        <p style="margin-bottom:10px;">Enter your email below. After that, you'll see trusted sponsor offers. Complete <strong>one quick registration</strong> (takes 1-3 minutes) to confirm your entry and be eligible to win!</p>
+
+
+
+        <label class="small" for="leadEmail" style="margin-top:8px; display:block; font-weight:600; color: var(--text); font-size:11px;">Email Address *</label>
+
+        <input id="leadEmail" type="email" placeholder="your.email@example.com" autocomplete="email" inputmode="email" aria-required="true">
+
+
+
+        <label class="small" for="leadPhone" style="margin-top:8px; display:block; font-weight:600; color: var(--text); font-size:11px;">Phone Number (Optional)</label>
+
+        <input id="leadPhone" type="tel" placeholder="+1 555 555 5555" autocomplete="tel" inputmode="tel">
+
+
+
+        <div class="row" style="margin-top:12px">
+
+          <button id="saveLead" class="btn-primary" style="flex:1; padding:10px 14px; font-size:13px; min-height:40px;">Continue to Offers →</button>
+
+          <button id="openOffers" class="btn-ghost" style="width:100px; font-size:11px; padding:6px 10px;">View Offers</button>
+
+        </div>
+
+
+
+        <div id="progressWrap" class="progress" style="display:none; margin-top:10px;">
+
+          <span id="progressBar" style="width:0%"></span>
+
+        </div>
+
+
+
+        <div id="offers" class="offers" style="display:none;">
+
+          <div style="margin-top:12px; padding-bottom:8px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+
+            <h3 style="font-size: 14px; margin: 0 0 6px 0; color: var(--text); font-weight:700;">Choose Your Sponsor Offer</h3>
+
+            <p class="small" style="margin: 0; font-size:11px;">Click on an offer below and complete the registration to confirm your entry:</p>
+
+          </div>
+
+          <div id="offersList" style="margin-top:8px"></div>
+
+        </div>
+
+
+
+        <div class="small" style="margin-top:12px; padding-top:10px; border-top: 1px solid rgba(255,255,255,0.05); font-size:10px;">🔒 Your information is secure. We only use it to confirm your entry and for legitimate follow-up. We do not sell your data.</div>
+
       </div>
 
-      <div id="progressWrap" class="progress" style="display:none;">
-        <span id="progressBar" style="width:0%"></span>
-      </div>
-
-      <div id="offers" class="offers" style="display:none;">
-        <div class="small" style="margin-top:10px">Choose an offer and complete the sponsor registration to confirm your entry:</div>
-        <div id="offersList" style="margin-top:8px"></div>
-      </div>
-
-      <div class="small" style="margin-top:12px">We only use your info to confirm your entry and for legitimate follow-up. We do not sell your data.</div>
     </div>
+
   </div>
+
+
 
   <script>
-    /*
-      CONFIG: insert your webhook and sponsor links here
-    */
-    const WEBHOOK_URL = ""; // example: "https://hooks.zapier.com/hooks/catch/XXXXX/YYYYY"
+
+    const WEBHOOK_URL = "";
+
     const SPONSORS = [
+
       { title: "Sponsor ---> CTC - Walmart", url: "https://smrturl.co/a/sac7b66fcac/17124?s1=" },
+
       { title: "Sponsor ---> CTConnect — Nike GiftCard", url: "https://smrturl.co/a/sac7b66fcac/14565?s1=" }
+
     ];
 
-    // Elements
+
+
+    // CHANGED: sub1 is now "caravan" instead of user email
+
+    const SUB1_VALUE = "caravan";
+
+
+
     const enterBtn = document.getElementById('enterBtn');
-    const stickyCTA = document.getElementById('stickyCTA');
+
     const modalBack = document.getElementById('modalBack');
+
     const closeModal = document.getElementById('closeModal');
+
     const saveLead = document.getElementById('saveLead');
+
     const openOffers = document.getElementById('openOffers');
+
     const leadEmail = document.getElementById('leadEmail');
+
     const leadPhone = document.getElementById('leadPhone');
+
     const progressWrap = document.getElementById('progressWrap');
+
     const progressBar = document.getElementById('progressBar');
+
     const offersEl = document.getElementById('offers');
+
     const offersList = document.getElementById('offersList');
+
     const howBtn = document.getElementById('howBtn');
 
-    // Utils
-    function isEmail(e){ return typeof e==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim()); }
-    function postJSON(url, body){ return fetch(url, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body) }); }
-    function appendS1(url,email){ try{ const u=new URL(url); if(!u.searchParams.get('s1')) u.searchParams.set('s1', encodeURIComponent(email)); return u.toString(); } catch(e){ return url + encodeURIComponent(email); } }
-    function openInNewTab(url){ try{ const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; document.body.appendChild(a); a.click(); document.body.removeChild(a); } catch(e){ window.open(url,'_blank','noopener'); } }
 
-    // Modal show/hide
+
+    function isEmail(e){ return typeof e==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim()); }
+
+    function postJSON(url, body){ return fetch(url, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body) }); }
+
+    
+
+    // CHANGED: Now appends "caravan" as sub1 instead of email
+
+    function appendS1(url, sub1Value){
+
+      try{ 
+
+        const u = new URL(url); 
+
+        u.searchParams.set('s1', encodeURIComponent(sub1Value)); 
+
+        return u.toString(); 
+
+      } catch(e){ 
+
+        const separator = url.includes('?') ? '&' : '?';
+
+        return url + separator + 's1=' + encodeURIComponent(sub1Value); 
+
+      } 
+
+    }
+
+    
+
+    function openInNewTab(url){ 
+
+      try{ 
+
+        const a = document.createElement('a'); 
+
+        a.href = url; 
+
+        a.target = '_blank'; 
+
+        a.rel = 'noopener noreferrer'; 
+
+        document.body.appendChild(a); 
+
+        a.click(); 
+
+        document.body.removeChild(a); 
+
+      } catch(e){ 
+
+        window.open(url,'_blank','noopener'); 
+
+      } 
+
+    }
+
+
+
     function showModal(){
+
       modalBack.style.display = 'flex';
+
       modalBack.setAttribute('aria-hidden','false');
-      // disable sticky while modal open (prevent duplicate CTAs)
-      stickyCTA.style.display = 'none';
+
       document.body.style.overflow = 'hidden';
+
       setTimeout(()=> leadEmail.focus(), 200);
+
     }
+
+    
     function hideModal(){
+
       modalBack.style.display = 'none';
+
       modalBack.setAttribute('aria-hidden','true');
-      // restore sticky CTA visibility with a small delay
-      setTimeout(() => {
-        // only show sticky on small screens
-        if(window.matchMedia('(max-width:980px)').matches) stickyCTA.style.display = 'block';
-      }, 200);
+
       document.body.style.overflow = 'auto';
+
       resetOffersUI();
+
     }
+
+
 
     enterBtn && enterBtn.addEventListener('click', showModal);
-    stickyCTA && stickyCTA.addEventListener('click', showModal);
+
     closeModal && closeModal.addEventListener('click', hideModal);
 
+
+
+    howBtn && howBtn.addEventListener('click', () => {
+
+      alert('HOW IT WORKS:\n\n1. Enter your email address\n2. Choose a sponsor offer\n3. Complete the quick registration (1-3 minutes)\n4. Your entry is confirmed!\n\nNo purchase required. One entry per person.');
+
+    });
+
+
+
     modalBack.addEventListener('click', (e) => { if (e.target === modalBack) hideModal(); });
+
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modalBack.style.display === 'flex') hideModal(); });
 
-    // Save lead -> show offers
+
+
     saveLead && saveLead.addEventListener('click', async () => {
+
       const email = (leadEmail.value || '').trim();
+
       const phone = (leadPhone.value || '').trim();
+
+      
+
       if(!isEmail(email)){
-        leadEmail.style.borderColor = '#ffd88f';
+
+        leadEmail.style.borderColor = '#ff6b6b';
+
         leadEmail.focus();
+
+        setTimeout(() => {
+
+          leadEmail.style.borderColor = '';
+
+        }, 2000);
+
         return;
+
       }
+
       leadEmail.style.borderColor = '';
 
-      const lead = { email, phone, ts: new Date().toISOString(), page: location.href };
-      try{ localStorage.setItem('caravan_lead', JSON.stringify(lead)); } catch(e){}
-      if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'lead_saved' })).catch(()=>{}); }
 
-      // show progress
+
+      const lead = { email, phone, ts: new Date().toISOString(), page: location.href };
+
+      try{ localStorage.setItem('caravan_lead', JSON.stringify(lead)); } catch(e){}
+
+      
+
+      if(WEBHOOK_URL){ 
+
+        postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'lead_saved', sub1: SUB1_VALUE })).catch(()=>{}); 
+
+      }
+
+
+
       showProgressThenOffers();
+
     });
+
+
 
     openOffers && openOffers.addEventListener('click', () => {
+
       const raw = localStorage.getItem('caravan_lead');
+
       if(!raw && !confirm('We recommend saving your email first so your entry will be credited. Open offers without saving?')) return;
+
       renderOffers();
+
       offersEl.style.display = 'block';
+
     });
 
+
+
     function showProgressThenOffers(){
+
       progressWrap.style.display = 'block';
+
       offersEl.style.display = 'none';
+
       progressBar.style.width = '0%';
+
       let p = 0;
+
       const t = setInterval(()=> {
+
         p += 12 + Math.random()*14;
+
         if(p > 100) p = 100;
+
         progressBar.style.width = p + '%';
-        if(p >= 100){ clearInterval(t); progressWrap.style.display = 'none'; renderOffers(); offersEl.style.display = 'block'; }
+
+        if(p >= 100){ 
+
+          clearInterval(t); 
+
+          progressWrap.style.display = 'none'; 
+
+          renderOffers(); 
+
+          offersEl.style.display = 'block'; 
+
+        }
+
       }, 120);
+
     }
+
+
 
     function renderOffers(){
+
       offersList.innerHTML = '';
+
       SPONSORS.forEach((s, idx) => {
+
         const row = document.createElement('div');
+
         row.className = 'offer';
-        row.innerHTML = `<div><div style="font-weight:700">${s.title}</div><div class="small" style="color:var(--muted)">Email registration • Avg 1–3 min</div></div><div style="display:flex;gap:8px;align-items:center"><div style="font-size:12px;color:var(--muted)">${idx===0?'Recommended':'Popular'}</div><div style="background:linear-gradient(90deg,#00e5ff,#0099ff);color:#000;padding:8px 10px;border-radius:999px;font-weight:700">Open</div></div>`;
+
+        row.innerHTML = `
+
+          <div style="flex:1; min-width:0;">
+
+            <div style="font-weight:700; color: var(--text); margin-bottom:2px; font-size:12px; line-height:1.3;">${s.title}</div>
+
+            <div class="small" style="color:var(--muted); font-size:10px; line-height:1.3;">Quick email registration • Takes 1-3 minutes</div>
+
+          </div>
+
+          <div style="display:flex;gap:6px;align-items:center; flex-shrink:0;">
+
+            <div style="font-size:9px;color:var(--muted);padding:3px 6px;background:rgba(255,255,255,0.05);border-radius:4px; white-space:nowrap;">${idx===0?'⭐':'🔥'}</div>
+
+            <div style="background:linear-gradient(90deg,var(--accent-2),#2bb5a8);color:#000;padding:6px 10px;border-radius:999px;font-weight:700;font-size:11px; white-space:nowrap;">Open →</div>
+
+          </div>
+
+        `;
+
         row.addEventListener('click', ()=> selectOffer(s));
+
         offersList.appendChild(row);
+
       });
+
     }
+
+
 
     async function selectOffer(sponsor){
+
       let lead = null;
+
       try{ lead = JSON.parse(localStorage.getItem('caravan_lead') || 'null'); } catch(e){ lead = null; }
-      if(!lead || !isEmail(lead.email)){ alert('Please save your email first so your entry is credited.'); return; }
 
-      if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'offer_click', offer: sponsor.title, offer_url: sponsor.url, ts: new Date().toISOString() })).catch(()=>{}); }
+      
 
-      const redirectUrl = appendS1(sponsor.url, lead.email);
+      if(!lead || !isEmail(lead.email)){ 
+
+        alert('Please enter your email first so your entry can be credited.'); 
+
+        return; 
+
+      }
+
+
+
+      if(WEBHOOK_URL){ 
+
+        postJSON(WEBHOOK_URL, Object.assign({}, lead, { 
+
+          event:'offer_click', 
+
+          offer: sponsor.title, 
+
+          offer_url: sponsor.url, 
+
+          sub1: SUB1_VALUE,
+
+          ts: new Date().toISOString() 
+
+        })).catch(()=>{}); 
+
+      }
+
+
+
+      // CHANGED: Uses SUB1_VALUE ("caravan") instead of lead.email
+
+      const redirectUrl = appendS1(sponsor.url, SUB1_VALUE);
+
       openInNewTab(redirectUrl);
 
-      setTimeout(()=>{ alert('Offer opened in a new tab. Complete the sponsor registration to confirm your entry.'); hideModal(); }, 700);
+
+
+      setTimeout(()=>{ 
+
+        alert('✅ Offer opened in a new tab!\n\nComplete the sponsor registration to confirm your entry. This usually takes 1-3 minutes.'); 
+
+        hideModal(); 
+
+      }, 700);
+
     }
+
+
 
     function resetOffersUI(){
+
       progressWrap.style.display = 'none';
+
       progressBar.style.width = '0%';
+
       offersEl.style.display = 'none';
+
       offersList.innerHTML = '';
+
     }
 
-    // Restore saved lead
+
+
     (function restoreLead(){
+
       try{
+
         const raw = localStorage.getItem('caravan_lead');
+
         if(raw){
+
           const p = JSON.parse(raw);
+
           if(p.email) leadEmail.value = p.email;
+
           if(p.phone) leadPhone.value = p.phone;
+
         }
+
       }catch(e){}
+
     })();
 
-    // Sticky CTA visibility: hide when keyboard likely open (visualViewport heuristic)
-    (function stickyVisibility(){
-      const s = document.getElementById('stickyCTA');
-      function update(){
-        if(window.visualViewport){
-          if(window.visualViewport.height < screen.availHeight * 0.65) s.style.display = 'none';
-          else s.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
-        } else {
-          s.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
-        }
-      }
-      window.addEventListener('resize', update);
-      window.addEventListener('orientationchange', update);
-      window.addEventListener('focusin', update);
-      window.addEventListener('focusout', update);
-      update();
-    })();
 
-    // Auto-open if ?open=1 is present
+
     (function autoOpen(){
+
       try{ const u = new URL(location.href); if(u.searchParams.get('open') === '1') showModal(); } catch(e) {}
+
     })();
 
-    // small helper (expose functions for debug)
+
+
     window.__landing = { showModal: showModal, hideModal: hideModal, renderOffers: renderOffers };
 
-    // Provide functions used earlier but not declared in some branches
-    function showModal(){ document.getElementById('modalBack').style.display = 'flex'; modalBack.setAttribute('aria-hidden','false'); stickyCTA.style.display = 'none'; document.body.style.overflow='hidden'; setTimeout(()=> leadEmail.focus(),200);}
-    function hideModal(){ document.getElementById('modalBack').style.display = 'none'; modalBack.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; setTimeout(()=> { if(window.matchMedia('(max-width:980px)').matches) stickyCTA.style.display='block'; },200 ); resetOffersUI(); }
-
-    // wire sticky CTA click element id mismatch earlier
-    document.getElementById('stickyCTA')?.addEventListener('click', showModal);
-    // wire hero button (enterBtn) already set earlier
   </script>
+
 </body>
+
 </html>
