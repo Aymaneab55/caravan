@@ -347,6 +347,11 @@
             min-height: 120px;
             position: relative;
             backdrop-filter: blur(10px);
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .item-card::before {
@@ -359,6 +364,8 @@
             background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,191,0,0.05));
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .item-card:hover {
@@ -408,6 +415,7 @@
             font-size: 14px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             z-index: 2;
+            pointer-events: none;
         }
 
         .item-img {
@@ -422,6 +430,7 @@
             transition: all 0.3s;
             position: relative;
             z-index: 1;
+            pointer-events: none;
         }
 
         .item-card.selected .item-img {
@@ -445,6 +454,7 @@
             position: relative;
             z-index: 1;
             padding: 0 4px;
+            pointer-events: none;
         }
 
         .item-card.selected .item-name {
@@ -2346,59 +2356,114 @@
         };
 
         // --- MAIN SCRIPT ---
-        $(document).ready(function() {
+        function initItemSelection() {
             const dingSound = document.getElementById('dingSound');
             const MAX_SELECTIONS = 3;
-            const $limitMessage = $('#selection-limit-message');
+            const limitMessage = document.getElementById('selection-limit-message');
+            const continueBtn = document.getElementById('continue-btn');
 
-            // Item Selection Logic
-            $('.item-card').click(function() {
-                const $this = $(this);
-                const isSelected = $this.hasClass('selected');
-                const selectedCount = $('.item-card.selected').length;
+            // Item Selection Logic - Using both jQuery and vanilla JS for reliability
+            function handleItemClick(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const itemCard = e.currentTarget;
+                const isSelected = itemCard.classList.contains('selected');
+                const selectedCards = document.querySelectorAll('.item-card.selected');
+                const selectedCount = selectedCards.length;
 
-                $limitMessage.hide();
+                if (limitMessage) {
+                    limitMessage.style.display = 'none';
+                }
 
                 if (isSelected) {
-                    $this.removeClass('selected');
+                    itemCard.classList.remove('selected');
                 } else {
                     if (selectedCount < MAX_SELECTIONS) {
-                        $this.addClass('selected');
+                        itemCard.classList.add('selected');
                         if (dingSound) {
                             dingSound.currentTime = 0;
                             dingSound.play().catch(() => {});
                         }
                     } else {
-                        $limitMessage.show();
-                        setTimeout(() => {
-                            $limitMessage.fadeOut();
-                        }, 3000);
+                        if (limitMessage) {
+                            limitMessage.style.display = 'block';
+                            setTimeout(() => {
+                                if (limitMessage) {
+                                    limitMessage.style.opacity = '0';
+                                    setTimeout(() => {
+                                        if (limitMessage) limitMessage.style.display = 'none';
+                                    }, 300);
+                                }
+                            }, 3000);
+                        }
                     }
                 }
 
-                if ($('.item-card.selected').length > 0) {
-                    $('#continue-btn').fadeIn(300);
-                } else {
-                    $('#continue-btn').fadeOut(300);
+                const currentSelected = document.querySelectorAll('.item-card.selected');
+                if (continueBtn) {
+                    if (currentSelected.length > 0) {
+                        continueBtn.style.display = 'block';
+                        continueBtn.style.opacity = '1';
+                    } else {
+                        continueBtn.style.opacity = '0';
+                        setTimeout(() => {
+                            if (continueBtn) continueBtn.style.display = 'none';
+                        }, 300);
+                    }
+                }
+            }
+
+            // Attach click handlers to all item cards
+            const itemCards = document.querySelectorAll('.item-card');
+            itemCards.forEach(function(card) {
+                // Remove any existing listeners
+                card.removeEventListener('click', handleItemClick);
+                // Add new listener
+                card.addEventListener('click', handleItemClick);
+                // Also add jQuery handler as backup
+                if (typeof $ !== 'undefined') {
+                    $(card).off('click').on('click', handleItemClick);
                 }
             });
 
             // Continue Button Click Logic
-            $('#continue-btn').click(function() {
-                const selectedItems = $('.item-card.selected');
-                if (selectedItems.length === 0) return;
+            if (continueBtn) {
+                continueBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedItems = document.querySelectorAll('.item-card.selected');
+                    if (selectedItems.length === 0) return;
 
-                const itemNames = selectedItems.map(function() {
-                    return $(this).find('.item-name').text().trim();
-                }).get().join(', ');
+                    const itemNames = Array.from(selectedItems).map(function(card) {
+                        const nameEl = card.querySelector('.item-name');
+                        return nameEl ? nameEl.textContent.trim() : '';
+                    }).filter(name => name).join(', ');
 
-                const itemImages = selectedItems.map(function() {
-                    return $(this).find('.item-img').attr('src');
-                }).get();
+                    const itemImages = Array.from(selectedItems).map(function(card) {
+                        const imgEl = card.querySelector('.item-img');
+                        return imgEl ? imgEl.getAttribute('src') : '';
+                    }).filter(img => img);
 
-                showPurchasePopup(itemNames, itemImages);
+                    if (itemNames && itemImages.length > 0) {
+                        showPurchasePopup(itemNames, itemImages);
+                    }
+                });
+            }
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initItemSelection);
+        } else {
+            initItemSelection();
+        }
+
+        // Also use jQuery ready as backup
+        if (typeof $ !== 'undefined') {
+            $(document).ready(function() {
+                initItemSelection();
             });
-        });
+        }
     </script>
 </body>
 </html>
